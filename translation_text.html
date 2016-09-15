@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script type="text/javascript" src="js/jquery-1.11.2.js"></script>
+	<script type="text/javascript" src="http://crowd4u.org/script/task_loader.js"></script>
+	<script src="translation_text.js" type="text/javascript" charset="utf-8"></script>
+	<style type="text/css">
+	  <!--
+	      body{
+	               background: #fff url(#) repeat-x;
+		       font: 16px/24px Arial,Helvetica,"ヒラギノ丸ゴ Pro W4","Hiragino Maru Gothic Pro",'メイリオ',Meiryo,Sans-Serif;
+		       color: #333;
+	      }
+
+		  .microtask {
+	     	   background-color: #99bbbb;
+		 	   padding:5px;
+		       color:white;
+          }
+	     
+	      #translationText{
+					   resize: both;
+	                   border:3px solid #99bbbb;
+                       margin-top:5px;
+                       margin-bottom:5px;
+                       width:800px;
+                       height:500px;
+                       overflow:scroll;
+                       scrollbar-3dlight-color:#ffeaff;
+                       scrollbar-arrow-color:#ffeaff;
+                       scrollbar-darkshadow-color:#ffffff;
+                       scrollbar-face-color:#ffffff;
+                       scrollbar-highlight-color:#ffffff;
+                       scrollbar-shadow-color:#ffeaff;
+                       scrollbar-track-color:#ffffff;
+              }
+              ul{
+                       margin-top:5px;
+                       margin-bottom:5px;
+                       list-style: none;
+              }
+              li{
+                       margin-top:10px;
+                       margin-bottom:10px;
+              }	
+
+	    -->
+	</style>
+  </head>
+  <body>
+    <h1>通訳文閲覧ページ</h1>
+
+    ※下に行くほど話者が最近話した文、上に行くほど話者が過去に話した文となります。
+	<div id="translationText">
+    </div><!-- translationText -->
+	<a class='microtask group100' href='javascript:void(0);' id = 'update' style = 'visibility:hidden'>他の候補も見る</a>
+    </body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script type="text/javascript" src="js/jquery-1.11.2.js"></script>
+	<script type="text/javascript" src="http://crowd4u.org/script/task_loader.js"></script>
+	<script src="translation_setting.js" type="text/javascript" charset="utf-8"></script>
+	<style type="text/css">
+	  <!--
+	      body{
+	               background: #fff url(#) repeat-x;
+		       font: 16px/24px Arial,Helvetica,"ヒラギノ丸ゴ Pro W4","Hiragino Maru Gothic Pro",'メイリオ',Meiryo,Sans-Serif;
+		       color: #333;
+	      }
+	      .microtask {
+	               background-color: #99bbbb;
+		       margin:30px;
+		       padding:20px;
+		       color:white;
+              }
+	    -->
+	</style>
+  </head>
+  <body>
+    <h1>手話同時通訳ボランティア設定ページ</h1>
+    <h3>1文の秒数</h3>
+    現在、1文の秒数は<span id='sec'></span>秒に設定されています。<br />
+    変更する場合は、「秒数設定」ボタンを押し、表示されたタスクのテキストボックスに任意の数を入力して「Submit」ボタンを押してください。
+    <h3>通訳頻度</h3>
+    現在、ボランティア参加者が通訳する頻度は<span id='player_num'></span>文に1回です。<br />
+    変更する場合は、「通訳頻度設定」ボタンを押し、表示されたタスクのテキストボックスに任意の数を入力して「Submit」ボタンを押してください。
+    <h3>通訳データリセット</h3>
+    通訳データをリセットし、新たに手話同時通訳ボランティアを開始したい場合、<br />
+    「通訳リセット」ボタンを押し、表示されたタスクの「Reset」ボタンを押してください。<br />
+    リセット実行から完了までには時間がかかりますので、しばらくお待ちください。<br />
+
+    <h3>各値を変更する場合の注意事項</h3>
+    テキストボックスに何も入力せずに「Submit」ボタンは押せません。
+    <p><br />
+      <a class='microtask group101' href='javascript:void(0);'>秒数設定</a>
+      <a class='microtask group102' href='javascript:void(0);'>通訳頻度設定</a>
+	  <a class='microtask group103' href='javascript:void(0);'>プレイヤーリセット</a>
+    </p>
+    </body>
+</html>

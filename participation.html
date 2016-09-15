@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script type="text/javascript" src="js/jquery-1.11.2.js"></script>
+	<script type="text/javascript" src="http://crowd4u.org/script/task_loader.js"></script>
+	<script src="participation.js" type="text/javascript" charset="utf-8"></script>
+	<style type="text/css">
+	  <!--
+	      body{
+	           background: #fff url(#) repeat-x;
+		       font: 16px/24px Arial,Helvetica,"ヒラギノ丸ゴ Pro W4","Hiragino Maru Gothic Pro",'メイリオ',Meiryo,Sans-Serif;
+		       color: #333;
+	      }
+
+	      .microtask {
+	     	   background-color: #99bbbb;
+		 	   margin:30px;
+		 	   padding:20px;
+		       color:white;
+              }
+
+			#ptask { 
+				background-color: #99bbbb;
+				margin:30px;
+		 	    padding:20px;
+				color: blue;
+			}
+
+			#ptask2	{
+				background-color: #99bbbb;
+				margin:30px;
+		 	    padding:20px;
+			    opacity:0.5;
+				color: blue;
+			}
+			    	
+
+	    -->
+	</style>
+  </head>
+  <body>
+    <h1>手話同時通訳ボランティアページ</h1>
+	<h4>このページはクラウドソーシングによる手話の同時通訳を実現するためのシステムのページです。手話の同時通訳にご協力いただける方は、以下の手順に従って参加登録を行ってください。</h4>
+    <h2>手順</h2>
+	<h3>STEP 1：ログイン</h3>
+	以下のリンクからCrowd4Uにログインしてください。
+	
+	<h3><span id='login'><a href="http://crowd4u.org" target="_blank">ログインしてください</a></span></h3>
+	
+    <h3>STEP 2：参加登録</h3>
+    「参加登録」ボタンを押すと参加登録タスクが表示されるので、タスクの「OK」ボタンを押してください。
+	<p><input  type="button" value="参加登録" id="ptask" disabled/></p>
+	<a class='microtask group98 group_only' href='javascript:void(0);' id = "participation" style = "visibility:hidden">参加登録</a>
+	<h3>STEP 3：通訳</h3>
+    参加登録が完了すると、通訳ページへのリンクが表示されるのでクリックして、通訳ページへ移動してください。
+
+    <h3><span id = 'count'>参加登録を行ってください</span></h3>
+ </body>
+</html>

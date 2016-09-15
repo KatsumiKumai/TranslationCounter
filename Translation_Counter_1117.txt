@@ -1,0 +1,390 @@
+﻿schema:
+//通訳文テーブル
+  Translation(
+    id int:auto_increment;
+    t_count int;
+    sets int;
+    pid int;
+    result text;
+  score int;
+  groupid int;
+  )key(id,sets);
+
+  //通訳文の新しい点を一時的に保存
+  OpenTranslationGood(
+  id int(11):auto_increment;
+  trans_id int(11);
+    score int(11);
+    trans_sets int(11);
+  )key(id);
+
+  //１文の秒数設定
+  IntervalSec(
+    id int(11);
+    sec int(11);
+  )key(id);
+
+  //IntervalSecを一時的に保存
+  OpenIntervalSec(
+    id int(11):auto_increment;
+    sec int(11);
+  )key(id);
+
+   Now_TransGroup(
+  id int;
+  trans_group int;
+  )key(id); 
+
+  //OpenなNow_groupid
+  OpenNow_TransGroup(
+  id int(11):auto_increment;
+  trans_group int;
+  )key(id); 
+
+  //通訳グループ数設定
+  IntervalTranslation(
+    id int(11);
+    num int(11);
+  )key(id);
+
+  //IntervalTranslationを一時的に保存
+  OpenIntervalTranslation(
+    id int(11):auto_increment;
+    num int(11);
+  )key(id);
+
+  //時間テーブル
+  Time(
+    id int(11):auto_increment;
+    time datetime;
+  )key(id);
+
+  //うなずき回数テーブル
+  CountTime(
+    id int;
+    time datetime;
+    count int;
+  )key(id);
+
+  //テストタイマー
+  Worker_Time(
+    id int(11):auto_increment;
+    player int;
+  )key(id);
+
+  //ワーカーのグループ割り当て
+  PlayerGroup(
+    id int:auto_increment;
+    pid int;
+    groupid int;
+    sets int;
+  )key(id,sets);
+  
+  //タスクセット(リセット)
+  TranslationSet(
+    id int;
+    sets int;
+  )key(id);
+
+  PlayerSet(
+  id int;
+  sets int;
+  )key(id);
+  
+  //リセットデータを一時的に保存
+  OpenResetTranslation(
+    id int:auto_increment;
+  )key(id);
+
+  //参加登録タスク
+  !ParticipationTask(
+    sets int;
+    _open_fact_id int;
+  )distinct_worker(sets; 1000);
+
+   //通訳タスク
+   !TranslationTask(
+     sets int;
+     _open_fact_id int;
+  ); 
+
+  //１文の秒数設定
+  !UpdateIntervalSecTask(
+    _open_fact_id int;
+  );
+
+  //通訳グループ数設定
+  !UpdateIntervalTranslationTask(
+    _open_fact_id int;
+  );
+  
+  //リセットタスク
+  !ResetTranslationTask(
+    _open_fact_id int;
+  );
+ 
+  //通訳文の点数を更新するタスク
+  !UpdateTranslationScoreTask(
+  _open_fact_id int;
+  );
+
+rules:
+  //初期定数挿入
+  IntervalTranslation(id:1, num:3);
+  IntervalSec(id:1,sec:1);
+  TranslationSet(id:1,sets:1);
+  PlayerSet(id:1,sets:1);
+
+  PlayerGroup(pid,groupid,sets)/open :- PlayerSet(id:1,sets);
+  PlayerGroup(pid,groupid,sets)/open :- PlayerSet(id:1,sets);
+  PlayerGroup(pid,groupid,sets)/open :- PlayerSet(id:1,sets);
+  PlayerGroup(pid,groupid,sets)/open :- PlayerSet(id:1,sets);
+  PlayerGroup(pid,groupid,sets)/open :- PlayerSet(id:1,sets);
+  PlayerGroup(pid,groupid,sets)/open :- PlayerSet(id:1,sets);
+  PlayerGroup(pid,groupid,sets)/open :- PlayerSet(id:1,sets);
+  PlayerGroup(pid,groupid,sets)/open :- PlayerSet(id:1,sets);
+  PlayerGroup(pid,groupid,sets)/open :- PlayerSet(id:1,sets);
+  PlayerGroup(pid,groupid,sets)/open :- PlayerSet(id:1,sets);
+  PlayerGroup(pid,groupid,sets)/open :- PlayerSet(id:1,sets);
+  PlayerGroup(pid,groupid,sets)/open :- PlayerSet(id:1,sets);
+  PlayerGroup(pid,groupid,sets)/open :- PlayerSet(id:1,sets);
+  PlayerGroup(pid,groupid,sets)/open :- PlayerSet(id:1,sets);
+  PlayerGroup(pid,groupid,sets)/open :- PlayerSet(id:1,sets);
+  PlayerGroup(pid,groupid,sets)/open :- PlayerSet(id:1,sets);
+  PlayerGroup(pid,groupid,sets)/open :- PlayerSet(id:1,sets);
+  PlayerGroup(pid,groupid,sets)/open :- PlayerSet(id:1,sets);
+  PlayerGroup(pid,groupid,sets)/open :- PlayerSet(id:1,sets);
+  PlayerGroup(pid,groupid,sets)/open :- PlayerSet(id:1,sets);
+  PlayerGroup(pid,groupid,sets)/open :- PlayerSet(id:1,sets);
+  PlayerGroup(pid,groupid,sets)/open :- PlayerSet(id:1,sets);
+  PlayerGroup(pid,groupid,sets)/open :- PlayerSet(id:1,sets);
+  PlayerGroup(pid,groupid,sets)/open :- PlayerSet(id:1,sets);
+
+  !ParticipationTask(_open_fact_id, sets) :- ?PlayerGroup(sets, _fact_id:_open_fact_id);
+
+  //通訳文を受付中(openにする)
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  Translation(result,sets,pid,groupid)/open[_logged_in] :- TranslationSet(id:1,sets);
+  
+ 
+  //通訳グループ数設定
+  OpenIntervalTranslation(num)/open;
+  OpenIntervalTranslation(num)/open;
+  OpenIntervalTranslation(num)/open;
+  IntervalTranslation(id:1,num)/update <- OpenIntervalTranslation(num);
+  
+  //１文の秒数設定
+  OpenIntervalSec(sec)/open;
+  OpenIntervalSec(sec)/open;
+  OpenIntervalSec(sec)/open;
+  IntervalSec(id:1,sec)/update <- OpenIntervalSec(sec);
+
+  //リセット
+  OpenResetTranslation()/open;
+  OpenResetTranslation()/open;
+  OpenResetTranslation()/open;
+  PlayerSet(id:1,sets)/update <- OpenResetTranslation(id),[[ruby|sets = id + 1;]];
+
+  //通訳文の点数更新
+  OpenTranslationGood(trans_id,score)/open;
+  OpenTranslationGood(trans_id,score)/open;
+  
+  
+  //通訳文の点数の更新
+  Translation(id:x,score:y2,sets:z)/update <- OpenTranslationGood(trans_id:x,score:y1,trans_sets:z),[[ruby|y2=y1+5; true;]];
+  Now_TransGroup(id:1,trans_group) <- OpenNow_TransGroup(trans_group),Now_TransGroup:c,[[ruby| c.length == 0]];
+  Now_TransGroup(id:1,trans_group)/update <- OpenNow_TransGroup(trans_group);  
+
+  //CoutTimeリレーションの１番はじめの処理
+  CountTime(id:1,time,count:1) <- Time(time),CountTime:c,[[ruby| c.length == 0]];
+  //CountTimeリレーションのそれ以降の処理
+  CountTime(id:1,time:task_time,count:new_count)/update<-Time(time:task_time),CountTime(id:1,time:count_time,count), IntervalSec(id:1,sec),[[ruby|new_count = count + 1 if (task_time.to_time.to_i - count_time.to_time.to_i) > sec]];
+
+  //タスクからの回答をキャッチ
+  !UpdateIntervalTranslationTask(_open_fact_id) <- ?OpenIntervalTranslation(_fact_id:_open_fact_id);
+  !UpdateIntervalSecTask(_open_fact_id) <- ?OpenIntervalSec(_fact_id:_open_fact_id);
+  !TranslationTask(sets,_open_fact_id) :- ?Translation(sets,_fact_id:_open_fact_id);
+  !ResetTranslationTask(_open_fact_id) <- ?OpenResetTranslation(_fact_id:_open_fact_id);
+  !UpdateTranslationScoreTask(_open_fact_id) <- ?OpenTranslationGood(_fact_id:_open_fact_id);
+
+views:
+
+  !ParticipationTask(sets,_open_fact_id){
+    <p>"通訳タスクに協力していただける場合は、グループを選択し、OKボタンを押してください"</p>
+     <form fact=PlayerGroup(pid, groupid, sets,_open_fact_id) move=!ParticipationTask()>
+          <input type="hidden" name="pid" value="$_player_id" />
+          <p>
+          <select name="groupid">
+          <option value="0">g1</option>
+          <option value="1">g2</option>
+          <option value="2">g3</option>
+          <option value="3">g4</option>
+          <option value="4">g5</option>
+          <option value="5">g6</option>
+          <option value="6">g7</option>
+          <option value="7">g8</option>
+          </select></p> 
+          <input type="submit" value="OK"/>
+    </form>
+  }
+
+  !ResetTranslationTask(_open_fact_id){
+    <p>"プレイヤーをすべて削除する場合はボタンを押してください"</p>
+     <form fact=OpenResetTranslation(_open_fact_id) move=!ResetTranslationTask()>
+          <input type="submit" value="リセット"/>
+    </form>
+  }
+
+  !TranslationTask(sets,_open_fact_id){
+    <head>
+      <script type="text/javascript" src="http://www.u.tsukuba.ac.jp/~s1620622/counter_exp2/js/jquery-1.11.2.js"></script>
+      <script type="text/javascript" src="http://crowd4u.org/script/task_loader.js"></script>
+      <script src="http://www.u.tsukuba.ac.jp/~s1620622/counter_exp2/js/translation.js" type="text/javascript" charset="utf-8"></script>
+      
+      <title>"文字起こし"</title>
+
+     <link rel="stylesheet" href="http://www.u.tsukuba.ac.jp/~s1620622/counter_exp2/css/common.css" type="text/css" />
+    </head>
+
+    <h1>"手話同時通訳ボランティアページ"</h1>
+    <h2>
+      "画面表示に従って通訳を行ってください。通訳の開始が近づいたら、通訳タスクが表示されます。通訳が完了したら、「通訳完了」ボタンをクリックするか「Ctrl+Enter」を入力してください。"
+    </h2>
+
+    <p><span id = 'count' style="font-size:15pt; color:#000000;"><a href='http://www.u.tsukuba.ac.jp/~s1620622/counter_exp2/participation.html'>"参加登録してください"</a></span></p>
+
+    <p>"通訳した文を入力してください"</p>
+          <form fact=Translation(result,sets,score:0,pid,t_count,groupid,_open_fact_id) move=!TranslationTask()>
+            <input type="hidden" name="pid" value="$_player_id" />
+            <input type="hidden" id="groupid" name="groupid" value="-1"/>
+            <input type="hidden" id="t_count" name="t_count" value="-1"/>
+            <textarea id="trans_textarea" name="result" rows="5" cols="50" required="required"/>
+            <input id="trans_submit" type="submit" value="通訳完了"/>
+          </form>
+
+      <div id="translationText"></div>
+
+  }
+
+  !UpdateIntervalTranslationTask(_open_fact_id){
+    <p>"グループ数を入力してください"</p>
+     <form fact=OpenIntervalTranslation(num,_open_fact_id)>
+          <input type="number" name="num" min="1" value="3" required="required"/>
+          <input type="submit" value="Submit"/>
+    </form>
+  }
+
+  !UpdateIntervalSecTask(_open_fact_id){
+    <p>"時間を入力してください"</p>
+     <form fact=OpenIntervalSec(sec,_open_fact_id)>
+          <input type="number" name="sec" min="1" value="3" required="required"/>
+          <input type="submit" value="Submit"/>
+    </form>
+  }
+
+  !UpdateTranslationScoreTask(_open_fact_id){
+    <p>"よりよい文章を選んでください"</p>
+  foreach Now_TransGroup(trans_group){
+      foreach Translation(id,sets,score,result,t_count:trans_group){
+           <form fact=OpenTranslationGood(trans_id:id,score,trans_sets:sets,_open_fact_id) move=!UpdateTranslationScoreTask>
+              <p><input type="submit" value="より良い"/>$result    $score</p>
+              <input type="hidden" name="score" value="$score"/>
+          </form>
+      }
+    }
+  }
