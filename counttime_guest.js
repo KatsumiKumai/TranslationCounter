@@ -2,7 +2,6 @@ var num = 0;
 var name = "カウント";
 var targetBtn;
 var pid = -1;
-var date_obj = new Date();
 var worker_time;
 
 window.onload = function(){
@@ -30,13 +29,16 @@ function post_time(){
 	console.log("プラスしました"+num);
 	targetBtn.value = name + num;
 
-	worker_time = date_obj.toString();
+	var date_obj = new Date();
+
+	// 1970/01/01 00:00:00 から開始して経過した時間を取得
+	worker_time = date_obj.getTime().toString();
 		
 	//ボタンを押した時間をtimeテーブルに格納
 	$c4u.ajax({
 		  type:"post",
 		  url:"http://crowd4u.org/api/insert_fact",
-		  data:"project_name=Translation_Sign_Language_Counter2_0714&relation_name=Worker_Time&tuple=player:"+pid,
+		  data:"project_name=Translation_Sign_Language_Counter2_0714&relation_name=Worker_Time&tuple=player:"+pid+",time:"+worker_time,
 		  xhrFields:{withCredentials: true},
 		  crossDomain: true,
 		  cache: false,
@@ -62,9 +64,9 @@ function login_check(){
 	    crossDomain: true,
 	    cache: false,
 	    success:function(data){
-		if(data.data[0] != null){
-		    pid = data.data[0]._member_id;	
-		}
+			if(data.data[0] != null){
+			    pid = data.data[0]._member_id;	
+			}
 	    }
 	});
 }

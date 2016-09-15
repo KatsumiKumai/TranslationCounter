@@ -70,6 +70,7 @@
   Worker_Time(
     id int(11):auto_increment;
     player int;
+    time string;
   )key(id);
 
   //ワーカーのグループ割り当て
