@@ -37,7 +37,7 @@ function post_time(){
 	//ボタンを押した時間をtimeテーブルに格納
 	$c4u.ajax({
 		  type:"post",
-		  url:"http://oahu.slis.tsukuba.ac.jp/api/insert_fact",
+		  url:"http://crowd4u.org/api/insert_fact",
 		  data:"project_name=Translation_Sign_Language_Counter2_0714&relation_name=Worker_Time&tuple=player:"+pid+",time:"+worker_time,
 		  xhrFields:{withCredentials: true},
 		  crossDomain: true,
@@ -58,7 +58,7 @@ function login_check(){
 	//oahuにログインしてるか確認
 	$c4u.ajax({
 	    type: "GET",
-	    url: 'http://oahu.slis.tsukuba.ac.jp/api/get_data_filtering_userid?project_name=Translation_Sign_Language_Counter2_0714&relation_name=_Member&attr=_member_id',
+	    url: 'http://crowd4u.org/api/get_data_filtering_userid?project_name=Translation_Sign_Language_Counter2_0714&relation_name=_Member&attr=_member_id',
 	    dataType: "json",
 	    xhrFields:{withCredentials: true},
 	    crossDomain: true,
@@ -66,6 +66,9 @@ function login_check(){
 	    success:function(data){
 			if(data.data[0] != null){
 			    pid = data.data[0]._member_id;	
+				if(pid == -1){
+					location.href='index.html';
+				}
 			}
 	    }
 	});
