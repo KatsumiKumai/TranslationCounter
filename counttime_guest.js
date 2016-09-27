@@ -32,8 +32,9 @@ function post_time(){
 	var date_obj = new Date();
 
 	// 1970/01/01 00:00:00 から開始して経過した時間を取得
-	worker_time = date_obj.getTime().toString();
-		
+	now = date_obj.getTime();
+	worker_time =GetTimeString(now);
+
 	//ボタンを押した時間をtimeテーブルに格納
 	$c4u.ajax({
 		  type:"post",
@@ -71,3 +72,17 @@ function login_check(){
 	});
 }
 
+function GetTimeString(time){
+   var milli_sec = time % 1000;
+   time = (time - milli_sec) / 1000;
+   var sec = time % 60;
+   time = (time - sec) / 60;
+   var min = time % 60;
+   var hou = (time - min) / 60;
+
+   // 文字列として連結
+   return hou  + ":" +
+      ((min < 10) ? "0" : "") + min + ":" +
+      ((sec < 10) ? "0" : "") + sec + "." +
+      ((milli_sec < 100) ? "0" : "") + ((milli_sec < 10) ? "0" : "") + milli_sec;
+}
