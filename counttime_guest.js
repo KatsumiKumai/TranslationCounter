@@ -2,7 +2,6 @@ var num = 0;
 var name = "カウント";
 var targetBtn;
 var pid = -1;
-var date_obj = new Date();
 var worker_time;
 
 window.onload = function(){
@@ -30,13 +29,17 @@ function post_time(){
 	console.log("プラスしました"+num);
 	targetBtn.value = name + num;
 
-	worker_time = date_obj.toString();
-		
+	var date_obj = new Date();
+
+	// 1970/01/01 00:00:00 から開始して経過した時間を取得
+	now = date_obj.getTime();
+	worker_time =GetTimeString(now);
+
 	//ボタンを押した時間をtimeテーブルに格納
 	$c4u.ajax({
 		  type:"post",
-		  url:"http://crowd4u.org/api/insert_fact",
-		  data:"project_name=Translation_Sign_Language_Counter2_0714&relation_name=Worker_Time&tuple=player:"+pid,
+		  url:"http://oahu.slis.tsukuba.ac.jp/api/insert_fact",
+		  data:"project_name=Translation_Sign_Language_Counter2_0714&relation_name=Worker_Time&tuple=player:"+pid+",time:"+worker_time,
 		  xhrFields:{withCredentials: true},
 		  crossDomain: true,
 		  cache: false,
@@ -56,16 +59,31 @@ function login_check(){
 	//oahuにログインしてるか確認
 	$c4u.ajax({
 	    type: "GET",
-	    url: 'http://crowd4u.org/api/get_data_filtering_userid?project_name=Translation_Sign_Language_Counter2_0714&relation_name=_Member&attr=_member_id',
+	    url: 'http://oahu.slis.tsukuba.ac.jp/api/get_data_filtering_userid?project_name=Translation_Sign_Language_Counter2_0714&relation_name=_Member&attr=_member_id',
 	    dataType: "json",
 	    xhrFields:{withCredentials: true},
 	    crossDomain: true,
 	    cache: false,
 	    success:function(data){
-		if(data.data[0] != null){
-		    pid = data.data[0]._member_id;	
-		}
+			if(data.data[0] != null){
+			    pid = data.data[0]._member_id;	
+			}
 	    }
 	});
+}
+
+function GetTimeString(time){
+   var milli_sec = time % 1000;
+   time = (time - milli_sec) / 1000;
+   var sec = time % 60;
+   time = (time - sec) / 60;
+   var min = time % 60;
+   var hou = (time - min) / 60;
+
+   // 文字列として連結
+   return hou  + "時間" +
+      ((min < 10) ? "0" : "") + min + "分" +
+      ((sec < 10) ? "0" : "") + sec + "秒" +
+      ((milli_sec < 100) ? "0" : "") + ((milli_sec < 10) ? "0" : "") + milli_sec;
 }
 

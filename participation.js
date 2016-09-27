@@ -78,7 +78,7 @@ function load(){
 		if(player_group == -1 || player_group == null){
 			document.getElementById('count').innerHTML =　"参加登録をしてください";
 	    } else {
-			document.getElementById('count').innerHTML = "<a href='http://crowd4u.org/view/635/TranslationTask'>通訳画面に移動してください</a>";
+			document.getElementById('count').innerHTML = "<a href='http://crowd4u.org/view/646/TranslationTask'>通訳画面に移動してください</a>";
 		}	
 	}
 }
