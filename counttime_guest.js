@@ -86,3 +86,4 @@ function GetTimeString(time){
       ((sec < 10) ? "0" : "") + sec + "." +
       ((milli_sec < 100) ? "0" : "") + ((milli_sec < 10) ? "0" : "") + milli_sec;
 }
+

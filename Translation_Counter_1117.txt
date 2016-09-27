@@ -70,7 +70,7 @@
   Worker_Time(
     id int(11):auto_increment;
     player int;
-    time char;
+    time char(255);
   )key(id);
 
   //ワーカーのグループ割り当て
@@ -388,4 +388,5 @@ views:
           </form>
       }
     }
+
   }
