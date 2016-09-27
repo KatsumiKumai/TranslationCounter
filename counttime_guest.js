@@ -81,9 +81,9 @@ function GetTimeString(time){
    var hou = (time - min) / 60;
 
    // 文字列として連結
-   return hou  + ":" +
-      ((min < 10) ? "0" : "") + min + ":" +
-      ((sec < 10) ? "0" : "") + sec + "." +
+   return hou  + "時間" +
+      ((min < 10) ? "0" : "") + min + "分" +
+      ((sec < 10) ? "0" : "") + sec + "秒" +
       ((milli_sec < 100) ? "0" : "") + ((milli_sec < 10) ? "0" : "") + milli_sec;
 }
 
